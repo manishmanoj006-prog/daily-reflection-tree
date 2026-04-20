@@ -1,0 +1,39 @@
+id	parentId	type	text	options	target	signal
+START	null	start	Good evening. Let's reflect on your day.			
+Q1	START	question	How would you describe your day?	Good|Bad|Mixed|Productive		
+D1	Q1	decision		answer=Good|Productive:Q2;answer=Bad:Q3;answer=Mixed:Q4		
+						
+Q2	D1	question	"When things went well today, what made it happen?"	I worked hard|My team helped|I got lucky|I adapted quickly		axis1:internal
+Q3	D1	question	"When things went wrong today, what was your reaction?"	I tried to fix it|I blamed others|I felt stuck|I waited for help		axis1:external
+Q4	D1	question	What could have made your day better?	Better planning|More support|Less distraction|More effort		axis1:internal
+						
+R1	Q2	reflection	You showed responsibility in your actions today.		B1	axis1:internal
+R2	Q3	reflection	You focused more on external factors today.		B2	axis1:external
+R3	Q4	reflection	There were areas you could improve with better control.		B3	axis1:internal
+						
+B1	R1	bridge	Now let's look at what you gave today.		Q5	
+B2	R2	bridge	Now let's look at what you gave today.		Q5	
+B3	R3	bridge	Now let's look at what you gave today.		Q5	
+						
+Q5	null	question	Which best describes your behavior today?	I helped someone|I did extra work|I expected recognition|I felt others should do more		
+						
+D2	Q5	decision		answer=I helped someone|I did extra work:R4;answer=I expected recognition|I felt others should do more:R5		
+						
+R4	D2	reflection	You focused on contribution today.		B4	axis2:contribution
+R5	D2	reflection	You expected more from others today.		B5	axis2:entitlement
+						
+B4	R4	bridge	Now think beyond yourself.		Q6	
+B5	R5	bridge	Now think beyond yourself.		Q6	
+						
+Q6	null	question	"When thinking about your challenges today, who comes to mind?"	Only me|My team|A colleague|Customer		
+						
+D3	Q6	decision		answer=Only me:R6;answer=My team|A colleague|Customer:R7		
+						
+R6	D3	reflection	Your focus was mostly on yourself today.		SUMMARY	axis3:self
+R7	D3	reflection	You considered others in your thinking today.		SUMMARY	axis3:others
+						
+SUMMARY	R6	summary	"You reflected on responsibility, contribution, and awareness."			
+SUMMARY2	R7	summary	"You reflected on responsibility, contribution, and awareness."			
+						
+END	SUMMARY	end	See you tomorrow.			
+END2	SUMMARY2	end	See you tomorrow.			
